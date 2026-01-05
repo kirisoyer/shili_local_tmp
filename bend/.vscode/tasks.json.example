@@ -1,0 +1,67 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "编译 Java 项目",
+      "type": "shell",
+      "command": "javac",
+      "args": [
+        "-cp",
+        "${workspaceFolder}/src/main/webapp/WEB-INF/lib/*",
+        "-d",
+        "${workspaceFolder}/build/classes",
+        "-encoding",
+        "UTF-8",
+        "${workspaceFolder}/src/main/java/com/example/ordermanager/**/*.java"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": ["$tsc"],
+      "windows": {
+        "options": {
+          "shell": {
+            "executable": "powershell.exe",
+            "args": ["-Command"]
+          }
+        }
+      }
+    },
+    {
+      "label": "复制配置文件",
+      "type": "shell",
+      "command": "cp",
+      "args": [
+        "${workspaceFolder}/src/main/java/mybatis-config.xml",
+        "${workspaceFolder}/build/classes/"
+      ],
+      "group": "build",
+      "dependsOn": "编译 Java 项目",
+      "windows": {
+        "command": "copy",
+        "args": [
+          "${workspaceFolder}\\src\\main\\java\\mybatis-config.xml",
+          "${workspaceFolder}\\build\\classes\\"
+        ]
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "创建 WAR 包",
+      "type": "shell",
+      "command": "jar",
+      "args": [
+        "cvf",
+        "${workspaceFolder}/bbs-forum.war",
+        "-C",
+        "${workspaceFolder}/temp",
+        "."
+      ],
+      "group": "build",
+      "dependsOn": "编译 Java 项目",
+      "problemMatcher": []
+    }
+  ]
+}
+
