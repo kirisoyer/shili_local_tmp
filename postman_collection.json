@@ -1,0 +1,156 @@
+{
+	"info": {
+		"name": "BBS Post API 测试集合",
+		"description": "用于测试后端帖子管理接口",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "post_path",
+			"value": "/post",
+			"type": "string"
+		}
+	],
+	"item": [
+		{
+			"name": "1. 分页查询帖子",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}{{post_path}}?op=find&page=1&rows=10",
+					"host": ["{{base_url}}"],
+					"path": ["{{post_path}}"],
+					"query": [
+						{
+							"key": "op",
+							"value": "find"
+						},
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "rows",
+							"value": "10"
+						},
+						{
+							"key": "boardId",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "title",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			}
+		},
+		{
+			"name": "2. 获取帖子详情",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}{{post_path}}?op=detail&id=1",
+					"host": ["{{base_url}}"],
+					"path": ["{{post_path}}"],
+					"query": [
+						{
+							"key": "op",
+							"value": "detail"
+						},
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			}
+		},
+		{
+			"name": "3. 新增帖子",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\": \"测试帖子标题\",\n  \"content\": \"这是测试帖子的内容\",\n  \"userId\": 1,\n  \"boardId\": 1\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}{{post_path}}?op=insert",
+					"host": ["{{base_url}}"],
+					"path": ["{{post_path}}"],
+					"query": [
+						{
+							"key": "op",
+							"value": "insert"
+						}
+					]
+				}
+			}
+		},
+		{
+			"name": "4. 更新帖子",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": 1,\n  \"title\": \"更新后的标题\",\n  \"content\": \"更新后的内容\",\n  \"boardId\": 1\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}{{post_path}}?op=update",
+					"host": ["{{base_url}}"],
+					"path": ["{{post_path}}"],
+					"query": [
+						{
+							"key": "op",
+							"value": "update"
+						}
+					]
+				}
+			}
+		},
+		{
+			"name": "5. 删除帖子",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}{{post_path}}?op=delete&id=1",
+					"host": ["{{base_url}}"],
+					"path": ["{{post_path}}"],
+					"query": [
+						{
+							"key": "op",
+							"value": "delete"
+						},
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			}
+		}
+	]
+}
+
